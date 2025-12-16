@@ -21,21 +21,45 @@ in
       ];
     };
 
-    systemd.services.rabbitmq.postStart = ''
-      set -euo pipefail
+    systemd.services.rabbitmq.postStart =
+      let
+        rabbitmqctl = "${pkgs.rabbitmq-server}/bin/rabbitmqctl";
+        create-rabbitmq-user = pkgs.writeShellScript "create-rabbitmq-user" ''
+          set -euo pipefail
 
-      if [ ! -f ${config.services.rabbitmq.dataDir}/.bettertec-init-done ]; then
-        ${pkgs.rabbitmq-server}/bin/rabbitmqctl delete_user guest
+          if [ "$#" -lt 2 ]; then
+              echo "usage prepare-web.sh USERNAME PASSWORD [-a]"
+              echo "-a makes user an admin-user"
+              exit 1
+          fi
 
-        export CREATE_USER=${pkgs.betternix.create-rabbitmq-user}/bin/create-rabbitmq-user
-        ${pkgs.bash}/bin/bash ${config.sops.secrets."scripts/init-rabbitmq-users.sh".path}
+          USERNAME=$1
+          PASSWORD=$2
 
-        touch ${config.services.rabbitmq.dataDir}/.bettertec-init-done
-      else
-        echo "rabbitmq is already initialized"
-      fi
-    '';
+          ${rabbitmqctl} add_user ''${USERNAME} ''${PASSWORD}
+          ${rabbitmqctl} set_permissions ''${USERNAME} ".*" ".*" ".*"
 
+          if [ "$#" -eq 3 ] && [ "$3" == "-a" ]; then
+              ${rabbitmqctl} set_user_tags ''${USERNAME} administrator
+          fi
+        '';
+      in
+      ''
+        set -euo pipefail
+
+        if [ ! -f ${config.services.rabbitmq.dataDir}/.bettertec-init-done ]; then
+          ${pkgs.rabbitmq-server}/bin/rabbitmqctl delete_user guest
+
+          export CREATE_USER=${create-rabbitmq-user}
+          ${pkgs.bash}/bin/bash ${config.sops.secrets."scripts/init-rabbitmq-users.sh".path}
+
+          touch ${config.services.rabbitmq.dataDir}/.bettertec-init-done
+        else
+          echo "rabbitmq is already initialized"
+        fi
+      '';
+
+    # TODO: this doesn't work of course
     sops.secrets."scripts/init-rabbitmq-users.sh" = {
       mode = "0400";
       owner = config.users.users.rabbitmq.name;
