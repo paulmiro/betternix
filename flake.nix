@@ -43,7 +43,7 @@
       nixosModules = builtins.listToAttrs (
         map (name: {
           inherit name;
-          value = import (./modules + "/${name}");
+          value = (import (./modules + "/${name}"));
         }) (builtins.attrNames (builtins.readDir ./modules))
       );
 

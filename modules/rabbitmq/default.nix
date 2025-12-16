@@ -59,8 +59,9 @@ in
         fi
       '';
 
-    # TODO: this doesn't work of course
+    sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     sops.secrets."scripts/init-rabbitmq-users.sh" = {
+      sopsFile = ../../secrets/secrets.yaml;
       mode = "0400";
       owner = config.users.users.rabbitmq.name;
       group = config.users.groups.rabbitmq.name;

@@ -61,7 +61,9 @@ in
       '';
     };
 
+    sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     sops.secrets."scripts/alter-users-psql.sql" = {
+      sopsFile = ../../secrets/secrets.yaml;
       mode = "0400";
       owner = config.users.users.postgres.name;
       group = config.users.groups.postgres.name;
