@@ -1,2 +1,2 @@
-# bettertec-nixos-modules
+# betternix
 A collection of NixOS and Home-Manager modules for work
