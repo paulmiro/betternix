@@ -19,7 +19,6 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.etc = {
-      "bettertec/jdk_8".source = "${pkgs.jdk8_headless}/lib/openjdk";
       "bettertec/jdk_11".source = "${pkgs.jdk11_headless}/lib/openjdk";
       "bettertec/jdk_21".source = "${pkgs.jdk21_headless}/lib/openjdk";
       "bettertec/maven".source = "${pkgs.maven}/maven";
@@ -27,7 +26,6 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      jdk8_headless
       jdk11_headless
       jdk21_headless
       maven
