@@ -70,7 +70,7 @@ in
       path = "/etc/bettertec/scripts/alter-users-psql.sql";
     };
 
-    systemd.services.postgresql.postStart =
+    systemd.services.postgresql-setup.script =
       let
         dbOwnerScript = pkgs.writeText "postgres-ensure-db-owner.sql" ''
           ALTER DATABASE "betterbuild" OWNER TO "bettertec";
@@ -79,10 +79,9 @@ in
           ALTER DATABASE "build_export" OWNER TO "bettertec";
         '';
       in
-      # this gets ran on every startup but that should be fine
-      ''
-        $PSQL -f "${dbOwnerScript}" -d postgres
-        $PSQL -f "${config.sops.secrets."scripts/alter-users-psql.sql".path}" -d postgres
+      lib.mkAfter ''
+        psql -tAf "${dbOwnerScript}" -d postgres
+        psql -tAf "${config.sops.secrets."scripts/alter-users-psql.sql".path}" -d postgres
       '';
   };
 }
