@@ -21,6 +21,30 @@ in
         hostname = "git.bettertec.internal";
         user = "forgejo";
       };
+      "bettertec-*" = {
+        extraOptions = {
+          IdentityFile = "~/.ssh/betterkey";
+          user = "bettertec";
+        };
+      };
+      "bettertest-*" = {
+        extraOptions = {
+          IdentityFile = "~/.ssh/betterkey";
+          user = "bettertec";
+        };
+      };
+      "nce-*" = {
+        extraOptions = {
+          IdentityFile = "~/.ssh/betterkey";
+          user = "bettertec";
+        };
+      };
+      "ncetest-*" = {
+        extraOptions = {
+          IdentityFile = "~/.ssh/betterkey";
+          user = "bettertec";
+        };
+      };
     };
   };
 }
