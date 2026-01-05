@@ -64,12 +64,7 @@
 192.168.2.148 puppetboard.betterbuild-local.btc
 192.168.2.148 sonarqube.betterbuild-local.btc
 
-192.168.2.150 betterbuild
-192.168.2.150 betterbuild.local
-192.168.2.150 jenkins.betterbuild.local
-192.168.2.150 artifactory.betterbuild.local
-192.168.2.150 apt.betterbuild.local
-
+192.168.2.222   betterbuild
 192.168.2.222   build.bettertec.internal
 192.168.2.222   git.bettertec.internal
 192.168.2.222   artifactory.bettertec.internal
