@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.betternix.ssh;
+  cfg = config.betternix.packages;
 in
 {
-  options.betternix.ssh = {
+  options.betternix.packages = {
     enable = lib.mkEnableOption "enable betternix packages";
   };
 
