@@ -1,6 +1,5 @@
 {
   config,
-  flake-self,
   lib,
   ...
 }:
@@ -14,7 +13,7 @@ in
 
   config = lib.mkIf cfg.enable {
     nixpkgs = {
-      overlays = [ flake-self.overlays.betternix-overlay ];
+      overlays = map import (builtins.attrNames (builtins.readDir ../../overlays));
     };
   };
 }

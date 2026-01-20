@@ -34,11 +34,18 @@
 
       packages = forAllSystems (system: flakePkgs nixpkgsFor.${system});
 
-      overlays = {
-        betternix-overlay = final: prev: {
-          betternix = flakePkgs prev;
-        };
-      };
+      overlays = builtins.listToAttrs (
+        map (
+          filename:
+          let
+            name = lib.removeSuffix ".nix" filename;
+          in
+          {
+            inherit name;
+            value = import (./overlays + "/${filename}");
+          }
+        ) (builtins.attrNames (builtins.readDir ./overlays))
+      );
 
       nixosModules = builtins.listToAttrs (
         map (name: {
