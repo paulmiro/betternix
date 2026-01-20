@@ -13,6 +13,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    nixpkgs.overlays = [
+      (import ../../overlays/betternix.nix)
+    ];
+
     home.packages = with pkgs; [
       betternix.pp
     ];
