@@ -35,8 +35,8 @@
       packages = forAllSystems (system: flakePkgs nixpkgsFor.${system});
 
       overlays = {
-        bettertec-overlay = final: prev: {
-          bettertec = flakePkgs prev;
+        betternix-overlay = final: prev: {
+          betternix = flakePkgs prev;
         };
       };
 
