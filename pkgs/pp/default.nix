@@ -1,0 +1,55 @@
+{
+  writers,
+  zellij,
+  ...
+}:
+writers.writeRubyBin "pp" { } ''
+  require 'erb'
+  require 'tempfile'
+
+  if ARGV.length < 3
+      puts "Usage: pp <environment> <server_type> <numbers...>"
+      puts "Example: pp test web 1 2"
+      exit
+  end
+
+  environment, server_type, *numbers = ARGV
+
+  if environment == "test"
+      names = numbers.map { |n| "bettertest-#{server_type}-#{n}" }
+  elsif environment == "prod"
+      names = numbers.map { |n| "bettertec-#{server_type}-#{n}" }
+  else
+      puts "Unknown environment: #{environment}"
+      exit
+  end
+
+  if ["db", "monitor", "sftp", "web", "worker"].include?(server_type) == false
+      puts "Unknown server type: #{server_type}"
+      exit
+  end
+
+  numbers.each do |n|
+      if n.to_i.to_s != n
+          puts "Not an integer: #{n}"
+          exit
+      end
+  end
+
+
+  layout_template = File.read("${./layout.erb}")
+  pane_template = File.read("${./pane.erb}")
+
+  panes = ""
+  names.each do |name|
+      panes += ERB.new(pane_template).result(binding)
+  end
+
+  layout = ERB.new(layout_template).result(binding)
+
+  layout_file = Tempfile.new("pp-layout.kdl")
+  layout_file.write(layout)
+  layout_file.close
+
+  exec("${zellij}/bin/zellij -l #{layout_file.path}")
+''
