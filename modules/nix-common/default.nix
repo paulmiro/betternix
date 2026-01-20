@@ -13,7 +13,7 @@ in
 
   config = lib.mkIf cfg.enable {
     nixpkgs = {
-      overlays = map (filename: import ../../overlays + "/${filename}") (
+      overlays = map (filename: import (../../overlays + "/${filename}")) (
         builtins.attrNames (builtins.readDir ../../overlays)
       );
     };
