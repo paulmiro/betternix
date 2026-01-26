@@ -23,6 +23,12 @@ in
           hostname = "git.bettertec.internal";
           user = "forgejo";
         };
+        "betterdev-*" = {
+          extraOptions = {
+            IdentityFile = "~/.ssh/betterkey";
+            user = "bettertec";
+          };
+        };
         "bettertec-*" = {
           extraOptions = {
             IdentityFile = "~/.ssh/betterkey";
