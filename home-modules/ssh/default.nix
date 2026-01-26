@@ -12,37 +12,40 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.ssh.matchBlocks = {
-      "betterbuild" = {
-        hostname = "betterbuild";
-        user = "bettertec";
-      };
-      "git.bettertec.internal" = {
-        hostname = "git.bettertec.internal";
-        user = "forgejo";
-      };
-      "bettertec-*" = {
-        extraOptions = {
-          IdentityFile = "~/.ssh/betterkey";
+    programs.ssh = {
+      enable = true;
+      matchBlocks = {
+        "betterbuild" = {
+          hostname = "betterbuild";
           user = "bettertec";
         };
-      };
-      "bettertest-*" = {
-        extraOptions = {
-          IdentityFile = "~/.ssh/betterkey";
-          user = "bettertec";
+        "git.bettertec.internal" = {
+          hostname = "git.bettertec.internal";
+          user = "forgejo";
         };
-      };
-      "nce-*" = {
-        extraOptions = {
-          IdentityFile = "~/.ssh/betterkey";
-          user = "bettertec";
+        "bettertec-*" = {
+          extraOptions = {
+            IdentityFile = "~/.ssh/betterkey";
+            user = "bettertec";
+          };
         };
-      };
-      "ncetest-*" = {
-        extraOptions = {
-          IdentityFile = "~/.ssh/betterkey";
-          user = "bettertec";
+        "bettertest-*" = {
+          extraOptions = {
+            IdentityFile = "~/.ssh/betterkey";
+            user = "bettertec";
+          };
+        };
+        "nce-*" = {
+          extraOptions = {
+            IdentityFile = "~/.ssh/betterkey";
+            user = "bettertec";
+          };
+        };
+        "ncetest-*" = {
+          extraOptions = {
+            IdentityFile = "~/.ssh/betterkey";
+            user = "bettertec";
+          };
         };
       };
     };
