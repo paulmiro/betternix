@@ -10,7 +10,7 @@ writers.writeRubyBin "pp" { } ''
   if ARGV.length < 3
       puts "Usage: pp <environment> <server_type> <numbers...>"
       puts "Example: pp test web 1 2"
-      exit
+      exit 1
   end
 
   environment, server_type, *numbers = ARGV
@@ -21,18 +21,18 @@ writers.writeRubyBin "pp" { } ''
       names = numbers.map { |n| "bettertec-#{server_type}-#{n}" }
   else
       puts "Unknown environment: #{environment}"
-      exit
+      exit 1
   end
 
   if ["db", "monitor", "sftp", "web", "worker"].include?(server_type) == false
       puts "Unknown server type: #{server_type}"
-      exit
+      exit 1
   end
 
   numbers.each do |n|
       if n.to_i.to_s != n
           puts "Not an integer: #{n}"
-          exit
+          exit 1
       end
   end
 
@@ -40,12 +40,12 @@ writers.writeRubyBin "pp" { } ''
       `ping -c 1 -W 5 #{name}`
       if $?.exitstatus != 0
           puts "Could not ping #{name}, is your VPN connected?"
-          exit
+          exit 1
       end
       `ssh #{name} 'true'`
       if $?.exitstatus != 0
           puts "Could not ssh to #{name}, is your ssh config correct?"
-          exit
+          exit 1
       end
   end
 
