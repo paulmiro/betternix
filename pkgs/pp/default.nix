@@ -36,6 +36,19 @@ writers.writeRubyBin "pp" { } ''
       end
   end
 
+  names.each do |name|
+      `ping -c 1 -W 5 #{name}`
+      if $?.exitstatus != 0
+          puts "Could not ping #{name}, is your VPN connected?"
+          exit
+      end
+      `ssh #{name} 'true'`
+      if $?.exitstatus != 0
+          puts "Could not ssh to #{name}, is your ssh config correct?"
+          exit
+      end
+  end
+
 
   layout_template = File.read("${./layout.erb}")
   pane_template = File.read("${./pane.erb}")
