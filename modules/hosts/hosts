@@ -1,6 +1,12 @@
 # ⚠️ WARNING ⚠️
 # if you update this file, make sure to remove the first few lines containing localhost and unitymedia
 
+## DEV hosts
+
+10.6.0.4    betterdev-net-1
+10.6.0.5    betterdev-work-1
+10.6.0.6    betterdev-monitor-1
+
 # TEST hosts
 
 10.0.0.4	bettertest-sftp-1

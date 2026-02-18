@@ -15,6 +15,8 @@ writers.writeRubyBin "pp" { } ''
 
   environment, server_type, *numbers = ARGV
 
+  if environment == "dev"
+      names = numbers.map { |n| "betterdev-#{server_type}-#{n}" }
   if environment == "test"
       names = numbers.map { |n| "bettertest-#{server_type}-#{n}" }
   elsif environment == "prod"
@@ -24,7 +26,7 @@ writers.writeRubyBin "pp" { } ''
       exit 1
   end
 
-  if ["db", "monitor", "sftp", "web", "worker"].include?(server_type) == false
+  if ["db", "monitor", "sftp", "web", "worker", "net", "work"].include?(server_type) == false
       puts "Unknown server type: #{server_type}"
       exit 1
   end
