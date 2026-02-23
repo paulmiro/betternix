@@ -17,7 +17,7 @@ writers.writeRubyBin "pp" { } ''
 
   if environment == "dev"
       names = numbers.map { |n| "betterdev-#{server_type}-#{n}" }
-  if environment == "test"
+  elsif environment == "test"
       names = numbers.map { |n| "bettertest-#{server_type}-#{n}" }
   elsif environment == "prod"
       names = numbers.map { |n| "bettertec-#{server_type}-#{n}" }
