@@ -23,18 +23,13 @@ writers.writeRubyBin "mssh" { } ''
   if ARGV.length < 3
       puts "Error: Not enough arguments"
       usage
-  end
-
-  if ARGV.index("--") == nil
-      puts "Error: No -- separator given"
-      usage
-  end
+  end 
 
   environment = ARGV.shift
   server_type = ARGV.shift
 
   numbers = []
-  command = nil
+  command = ""
   ARGV.each do |arg|
       if arg == "--"
           command = ARGV.drop(ARGV.index("--") + 1).join(" ")
@@ -64,11 +59,6 @@ writers.writeRubyBin "mssh" { } ''
           puts "Error: Not an integer: #{n}"
           usage
       end
-  end
-
-  if command.nil?
-      puts "Error: No command given"
-      usage
   end
 
   names.each do |name|
