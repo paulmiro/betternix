@@ -16,6 +16,10 @@ writers.writeRubyBin "mssh" { } ''
       exit 1
   end
 
+  if ARGV.length == 0
+      usage
+  end
+
   if ARGV.length < 3
       puts "Error: Not enough arguments"
       usage

@@ -7,10 +7,22 @@ writers.writeRubyBin "pp" { } ''
   require 'erb'
   require 'tempfile'
 
-  if ARGV.length < 3
+  def usage
+      puts
+      puts "pp: execute puppet on multiple servers at once"
+      puts
       puts "Usage: pp <environment> <server_type> <numbers...>"
       puts "Example: pp test web 1 2"
       exit 1
+  end
+
+  if ARGV.length == 0
+      usage
+  end
+
+  if ARGV.length < 3
+      puts "Error: Not enough arguments"
+      usage
   end
 
   environment, server_type, *numbers = ARGV
@@ -22,31 +34,31 @@ writers.writeRubyBin "pp" { } ''
   elsif environment == "prod"
       names = numbers.map { |n| "bettertec-#{server_type}-#{n}" }
   else
-      puts "Unknown environment: #{environment}"
-      exit 1
+      puts "Error: Unknown environment: #{environment}"
+      usage
   end
 
   if ["db", "monitor", "sftp", "web", "worker", "net", "work"].include?(server_type) == false
-      puts "Unknown server type: #{server_type}"
-      exit 1
+      puts "Error: Unknown server type: #{server_type}"
+      usage
   end
 
   numbers.each do |n|
       if n.to_i.to_s != n
-          puts "Not an integer: #{n}"
-          exit 1
+          puts "Error: Not an integer: #{n}"
+          usage
       end
   end
 
   names.each do |name|
       `ping -c 1 -W 5 #{name}`
       if $?.exitstatus != 0
-          puts "Could not ping #{name}, is your VPN connected?"
+          puts "Error: Could not ping #{name}, is your VPN connected?"
           exit 1
       end
       `ssh #{name} 'true'`
       if $?.exitstatus != 0
-          puts "Could not ssh to #{name}, is your ssh config correct?"
+          puts "Error: Could not ssh to #{name}, is your ssh config correct?"
           exit 1
       end
   end
