@@ -1,0 +1,14 @@
+layout {
+    pane split_direction="vertical" {
+<%= panes %>    }
+    pane borderless=true size=2 {
+        name "hint"
+        command "echo"
+        args "Press ctrl+q to exit"
+    }
+}
+keybinds {
+    shared {
+        bind "Ctrl q" { CloseTab; }
+    }
+}
