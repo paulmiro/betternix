@@ -19,6 +19,7 @@ in
 
     home.packages = with pkgs; [
       betternix.pp
+      betternix.mssh
     ];
   };
 }
