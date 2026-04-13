@@ -85,7 +85,7 @@ writers.writeRubyBin "mssh" { } ''
 
   layout = ERB.new(layout_template).result(binding)
 
-  layout_file = Tempfile.new("mssh-layout.kdl")
+  layout_file = Tempfile.new(%w/mssh-layout .kdl/)
   layout_file.write(layout)
   layout_file.close
 

@@ -74,7 +74,7 @@ writers.writeRubyBin "pp" { } ''
 
   layout = ERB.new(layout_template).result(binding)
 
-  layout_file = Tempfile.new("pp-layout.kdl")
+  layout_file = Tempfile.new(%w/pp-layout .kdl/)
   layout_file.write(layout)
   layout_file.close
 
