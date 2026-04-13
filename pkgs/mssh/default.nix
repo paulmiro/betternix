@@ -42,8 +42,12 @@ writers.writeRubyBin "mssh" { } ''
       names = numbers.map { |n| "betterdev-#{server_type}-#{n}" }
   elsif environment == "test"
       names = numbers.map { |n| "bettertest-#{server_type}-#{n}" }
+  elsif environment == "ncetest"
+      names = numbers.map { |n| "ncetest-#{server_type}-#{n}" }
   elsif environment == "prod"
       names = numbers.map { |n| "bettertec-#{server_type}-#{n}" }
+  elsif environment == "nceprod"
+      names = numbers.map { |n| "nce-#{server_type}-#{n}" }
   else
       puts "Error: Unknown environment: #{environment}"
       usage
