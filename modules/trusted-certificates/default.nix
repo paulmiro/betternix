@@ -29,7 +29,7 @@ let
         --purpose=server-auth \
         $out
     '';
-    system = pkgs.hostPlatform.system;
+    system = pkgs.stdenv.hostPlatform.system;
     outputs = [ "out" ];
   };
 in
