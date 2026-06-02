@@ -14,7 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.ssh = {
       enable = true;
-      matchBlocks = {
+      settings = {
         "betterbuild" = {
           hostname = "betterbuild";
           user = "bettertec";
