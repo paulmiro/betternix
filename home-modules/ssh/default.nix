@@ -24,34 +24,24 @@ in
           user = "forgejo";
         };
         "betterdev-*" = {
-          extraOptions = {
-            IdentityFile = "~/.ssh/betterkey";
-            user = "bettertec";
-          };
+          IdentityFile = "~/.ssh/betterkey";
+          user = "bettertec";
         };
         "bettertec-*" = {
-          extraOptions = {
-            IdentityFile = "~/.ssh/betterkey";
-            user = "bettertec";
-          };
+          IdentityFile = "~/.ssh/betterkey";
+          user = "bettertec";
         };
         "bettertest-*" = {
-          extraOptions = {
-            IdentityFile = "~/.ssh/betterkey";
-            user = "bettertec";
-          };
+          IdentityFile = "~/.ssh/betterkey";
+          user = "bettertec";
         };
         "nce-*" = {
-          extraOptions = {
-            IdentityFile = "~/.ssh/betterkey";
-            user = "bettertec";
-          };
+          IdentityFile = "~/.ssh/betterkey";
+          user = "bettertec";
         };
         "ncetest-*" = {
-          extraOptions = {
-            IdentityFile = "~/.ssh/betterkey";
-            user = "bettertec";
-          };
+          IdentityFile = "~/.ssh/betterkey";
+          user = "bettertec";
         };
       };
     };
