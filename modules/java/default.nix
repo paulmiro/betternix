@@ -10,6 +10,7 @@ let
     "${pkgs.jdk11}/lib/openjdk"
   ];
   gradle_8 = pkgs.gradle_8.override { inherit javaToolchains; };
+  gradle_9 = pkgs.gradle_9.override { inherit javaToolchains; };
 in
 {
   options.betternix.java = {
@@ -23,13 +24,14 @@ in
       "bettertec/jdk_21".source = "${pkgs.jdk21}/lib/openjdk";
       "bettertec/maven".source = "${pkgs.maven}/maven";
       "bettertec/gradle_8".source = gradle_8;
+      "bettertec/gradle_9".source = gradle_9;
     };
 
     environment.systemPackages = with pkgs; [
       jdk11
       jdk21
       maven
-      gradle_8
+      gradle_9
     ];
   };
 
