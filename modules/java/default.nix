@@ -22,6 +22,7 @@ in
     environment.etc = {
       "bettertec/jdk_11".source = "${pkgs.jdk11}/lib/openjdk";
       "bettertec/jdk_21".source = "${pkgs.jdk21}/lib/openjdk";
+      "bettertec/jdk_25".source = "${pkgs.jdk25}/lib/openjdk";
       "bettertec/maven".source = "${pkgs.maven}/maven";
       "bettertec/gradle_8".source = gradle_8;
       "bettertec/gradle_9".source = gradle_9;
@@ -30,6 +31,7 @@ in
     environment.systemPackages = with pkgs; [
       jdk11
       jdk21
+      jdk25
       maven
       gradle_9
     ];
