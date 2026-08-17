@@ -11,7 +11,7 @@ creation_rules:
           - *user_paulmiro
           - *laptop_paul
           - *laptop_jonathan
-  - path_regex: secrets/android.jks
+  - path_regex: secrets/VpnServerRoot\.cer
     key_groups:
       - age:
           - *user_paulmiro
